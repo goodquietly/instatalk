@@ -1,11 +1,12 @@
 class RoomChannel < ApplicationCable::Channel
   def subscribed
-    logger.info "Subscribed to RoomChannel"
+    logger.info "Subscribed to RoomChannel, roomId: #{params[:roomId]}"
 
     stream_from "room_channel"
   end
 
   def unsubscribed
+    # Any cleanup needed when channel is unsubscribed
     logger.info "Unsubscribed to RoomChannel"
   end
 
