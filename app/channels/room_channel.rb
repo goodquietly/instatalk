@@ -5,11 +5,17 @@ class RoomChannel < ApplicationCable::Channel
     @room = Room.find(params[:roomId])
 
     stream_from "room_channel_#{@room.id}"
+
+    # Пишем сообщение, что юзер зашёл в чат
+    speak('message' => '* * * joined the room * * *')
   end
 
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
     logger.info "Unsubscribed to RoomChannel"
+
+    # Пишем сообщение, что юзер покинул чат
+    speak('message' => '* * * left the room * * *')
   end
 
   def speak(data)
